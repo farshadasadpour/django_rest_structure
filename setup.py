@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-rest-structure',
-    version='0.1',
+    version='1.0.0',
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
@@ -20,13 +20,8 @@ setup(
     python_requires=">=3.8",
     description='Structure for django rest framework.',
     long_description=README,
+    long_description_content_type="text/markdown",
     url='https://github.com/ArefMousakhani/django_rest_structure',
     author='Aref Mousakhani',
     author_email='aref.mousakhani@gmail.com',
-    classifiers=[
-        "Framework :: Django :: 3",
-        'Operating System :: OS Independent',
-        'Programming Language :: Python :: 3.8',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-    ],
 )
