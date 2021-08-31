@@ -10,8 +10,8 @@ from ..results.exception import Err
 
 class BaseSerializer(serializers.Serializer):
 
-    def __init__(self, data, check_is_valid: bool = True, request: WSGIRequest = None, *args, **kwargs):
-        super().__init__(data=data, *args, **kwargs)
+    def __init__(self, check_is_valid: bool = True, request: WSGIRequest = None, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         if check_is_valid:
             self.raise_error_if_not_valid()
         self.request = request
