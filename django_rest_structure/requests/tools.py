@@ -21,5 +21,5 @@ def get_client_fingerprint(request: WSGIRequest):
         (request.META.get("HTTP_USER_AGENT", ""),
          request.META.get("HTTP_ACCEPT_ENCODING", ""))
     )
-    request.fingerprint = hashlib.md5(
+    return hashlib.md5(
         fingerprint_raw.encode('utf-8')).hexdigest()
