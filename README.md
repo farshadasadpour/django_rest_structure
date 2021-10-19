@@ -286,3 +286,4 @@ def response_structure(response):
     }
 
 ```
+## 9. You can see the simple project that use from this package at: [django_rest_structure_sample](https://github.com/ArefMousakhani/django_rest_structure_sample)
