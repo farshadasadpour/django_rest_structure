@@ -1,6 +1,7 @@
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import JsonResponse
 from .codes import ResultMessageStructure
+from ..configs import REST_STRUCTURE_CONF
 
 
 class ResponseStructure:
@@ -20,15 +21,8 @@ class Request:
 
     @staticmethod
     def generate_response_data(response: ResponseStructure):
-        http_response = JsonResponse({
-            'status': {
-                'code': response.message.code,
-                'message': response.message.message,
-                'is_success': response.message.is_success_result,
-
-            },
-            'result': response.body
-        })
+        http_response = JsonResponse(REST_STRUCTURE_CONF['response_handler'](response),
+                                     status=response.message.http_code)
 
         http_response.err = response.err
         return http_response

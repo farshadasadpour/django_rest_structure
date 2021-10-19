@@ -13,6 +13,7 @@ class Err(ResultMessages, Exception):
         self.more_data = more_data
         self.message = Template(result_message.message).render(Context(message_context))
         self.code = result_message.code
+        self.http_code = result_message.http_code
         super().__init__(self.message)
 
 
@@ -29,7 +30,7 @@ def exception_handler(exc, context):
     else:
         if hasattr(exc, 'code'):
             exc: Err
-            result_message, additional_data = ResultMessageStructure(exc.code, exc.message, False), exc.more_data
+            result_message, additional_data = ResultMessageStructure(exc.code, exc.message, False, exc.http_code), exc.more_data
         else:
             err = traceback.format_exc()
             result_message = Err.UNDEFINED_ERROR

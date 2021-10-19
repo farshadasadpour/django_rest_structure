@@ -4,19 +4,19 @@ This app make your rest api application simple
 
 # Document
 
-### 1. Install by running
+## 1. Install by running
 `pip install django-rest-structure`
 ___
-### 2. Add middleware to your `MIDDLEWARE` (or `MIDDLEWARE_CLASSES`) setting like this:
+## 2. Add middleware to your `MIDDLEWARE` (or `MIDDLEWARE_CLASSES`) setting like this:
 
 ```python
 MIDDLEWARE = (
    'django_rest_structure.middlewares.middleware.RequestHandlerMiddleware',
    ...
- )
+)
 ```
 ___
-### 3. Add exception handler to your `REST_FRAMEWORK` setting like this:
+## 3. Add exception handler to your `REST_FRAMEWORK` setting like this:
 
 ```python
 REST_FRAMEWORK = {
@@ -25,7 +25,7 @@ REST_FRAMEWORK = {
     ...
 }
 ```
-   then add to `YOUR-PROJECT/urls.py`
+###### then add to `YOUR-PROJECT/urls.py`
 ```python
 handler404 = 'django_rest_structure.api.views.error_view_404'
 handler500 = 'django_rest_structure.api.views.error_view_500'
@@ -35,20 +35,22 @@ handler400 = 'django_rest_structure.api.views.error_view_400'
 ```
 ___
 
-### 4. Create your result messages like:
+
+## 4. Create your result messages like:
 ```python
 from django_rest_structure.results.codes import ResultMessageStructure
 from django_rest_structure.results.exception import ResultMessages
 
 class MyCustomResultMessages(ResultMessages):
-    CUSTOM_ERROR = ResultMessageStructure(1000, 'My Custom Error', False)
-    
-  
-
+    CUSTOM_ERROR = ResultMessageStructure(1, 'My Custom Error', False, 500)
+    # `1` is your result code
+    # `My Custom Error` is your result message
+    # `False` define result is success or not
+    # `500` is http response code
 ```
 ___
 
-### 5. Create your custom exception like:
+## 5. Create your custom exception like:
 ```python
 from django_rest_structure.results.exception import Err
 
@@ -58,7 +60,7 @@ class MyCustomError(MyCustomResultMessages, Err):
 
 ```
 ___
-### 6. Now you should create your views like:
+## 6. Now you should create your views like:
 
 ```python
 from django_rest_structure.api.views import BaseApiView
@@ -86,9 +88,9 @@ class MyView(BaseApiView):
 }
 ```
 
-### 7. Create your serializers like:
+## 7. Create your serializers like:
 
-#### 1. simple serializers 
+### 1. simple serializers 
 
 ```python
 from django_rest_structure.api.views import BaseApiView
@@ -133,7 +135,7 @@ class MyView(BaseApiView):
     }
 }
 ```
-#### 2. serializer with custom validation
+### 2. serializer with custom validation
 ```python
 from django_rest_structure.api.views import BaseApiView
 from django_rest_structure.api.serializers import BaseSerializer
@@ -207,7 +209,7 @@ class MyView(BaseApiView):
     }
 }
 ```
-#### 3. list serializer
+### 3. list serializer
 ```python
 from django_rest_structure.api.views import BaseApiView
 from django_rest_structure.api.serializers import MyListSerializer
@@ -257,4 +259,30 @@ class MyView(BaseApiView):
         "total_count": 12
     }
 }
+```
+
+## 8. Config your settings
+
+##### change structure response function by adding to your `settings.py`
+```python
+
+REST_STRUCTURE_CONF = {
+    'response_handler': 'django_rest_structure.results.structure.response_structure'
+}
+
+```
+###### define your custom function like:
+```python
+
+def response_structure(response):
+    return {
+        'status': {
+            'code': response.message.code,
+            'message': response.message.message,
+            'is_success': response.message.is_success_result,
+
+        },
+        'result': response.body
+    }
+
 ```

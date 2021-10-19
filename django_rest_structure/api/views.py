@@ -36,19 +36,19 @@ class BaseApiView(APIView):
 
 @response_handler_dec
 def error_view_404(request, *args, **kwargs):
-    return ResponseStructure(ResultMessages.HTTP_ERROR_404)
+    return ResponseStructure(ResultMessages.PAGE_NOT_FOUND)
 
 
 @response_handler_dec
 def error_view_500(request, *args, **kwargs):
-    return ResponseStructure(ResultMessages.HTTP_ERROR_500)
+    return ResponseStructure(ResultMessages.UNDEFINED_ERROR)
 
 
 @response_handler_dec
 def error_view_403(request, *args, **kwargs):
-    return ResponseStructure(ResultMessages.HTTP_ERROR_403)
+    return ResponseStructure(ResultMessages.FORBIDDEN)
 
 
 @response_handler_dec
 def error_view_400(request, *args, **kwargs):
-    return ResponseStructure(ResultMessages.HTTP_ERROR_400)
+    return ResponseStructure(ResultMessages.BAD_REQUEST)
