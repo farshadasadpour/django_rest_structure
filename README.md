@@ -56,7 +56,7 @@ from django_rest_structure.results.exception import Err
 
 class MyCustomError(MyCustomResultMessages, Err):
     def __init__(self, *args, **kwargs):
-        super(Err, self).__init__(*args, **kwargs)
+        super(MyCustomError, self).__init__(*args, **kwargs)
 
 ```
 ___
