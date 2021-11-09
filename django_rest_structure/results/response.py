@@ -30,6 +30,6 @@ class Request:
 
 def response_handler_dec(func):
     def wrapper(*args, **kwargs):
-        return Request.generate_response_data(func(*args, *kwargs))
+        return Request.generate_response_data(func(*args, **kwargs))
 
     return wrapper

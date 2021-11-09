@@ -46,7 +46,7 @@ class BaseListSerializer(BaseSerializer):
     FILTERS = []
 
     def paging(self, objects, total_count: int = None) -> Tuple[list, int]:
-        total_count = len(objects) if total_count is not None else total_count
+        total_count = len(objects) if total_count is None else total_count
         paginator = Paginator(objects, self.validated_data['count'])
         try:
             result = paginator.page(self.validated_data['page']).object_list
