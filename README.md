@@ -291,7 +291,7 @@ def response_structure(response):
 ```python
 
 REST_STRUCTURE_CONF = {
-        'log_hander': 'django_rest_structure.logs.console.emmit',
+        'log_handler': 'django_rest_structure.logs.console.emmit',
 }
 
 ```
