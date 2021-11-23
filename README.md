@@ -286,4 +286,27 @@ def response_structure(response):
     }
 
 ```
+
+##### change logging handler function by adding to your `settings.py`
+```python
+
+REST_STRUCTURE_CONF = {
+        'log_hander': 'django_rest_structure.logs.console.emmit',
+}
+
+```
+###### define your custom function like:
+```python
+
+import logging
+logger = logging.Logger('console')
+
+
+
+def emmit(request, response, error, request_time, response_time):
+    if error is not None:
+        logger.debug(error)
+
+
+```
 ## 9. You can see the simple project that use from this package at: [django_rest_structure_sample](https://github.com/ArefMousakhani/django_rest_structure_sample)
