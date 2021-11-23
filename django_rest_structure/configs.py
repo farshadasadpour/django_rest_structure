@@ -3,7 +3,8 @@ from importlib import import_module
 
 LANGUAGE_CODE = 'en-us'
 REST_STRUCTURE_CONF = {
-    'response_handler': 'django_rest_structure.results.structure.response_structure'
+    'response_handler': 'django_rest_structure.results.structure.response_structure',
+    'log_hander': 'django_rest_structure.logs.console.emmit',
 }
 
 if hasattr(conf, 'settings'):
@@ -16,4 +17,9 @@ if hasattr(conf, 'settings'):
     REST_STRUCTURE_CONF['response_handler'] = getattr(
         import_module('.'.join(REST_STRUCTURE_CONF['response_handler'].split('.')[:-1])),
         REST_STRUCTURE_CONF['response_handler'].split('.')[-1]
+    )
+
+    REST_STRUCTURE_CONF['log_hander'] = getattr(
+        import_module('.'.join(REST_STRUCTURE_CONF['log_hander'].split('.')[:-1])),
+        REST_STRUCTURE_CONF['log_hander'].split('.')[-1]
     )
