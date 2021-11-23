@@ -1,6 +1,7 @@
 import uuid
 from django.utils import timezone
 from ..logs.console import emmit
+from ..configs import REST_STRUCTURE_CONF
 
 
 class RequestHandlerMiddleware:
@@ -13,5 +14,6 @@ class RequestHandlerMiddleware:
         request_time = timezone.now()
 
         response = self.get_response(request)
-        emmit(request, response, response.err if hasattr(response, 'err') else None, request_time, timezone.now())
+        REST_STRUCTURE_CONF['log_hander'](request, response, response.err if hasattr(response, 'err') else None,
+                                          request_time, timezone.now())
         return response
