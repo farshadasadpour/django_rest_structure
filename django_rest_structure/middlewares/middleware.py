@@ -14,6 +14,6 @@ class RequestHandlerMiddleware:
         request_time = timezone.now()
 
         response = self.get_response(request)
-        REST_STRUCTURE_CONF['log_hander'](request, response, response.err if hasattr(response, 'err') else None,
+        REST_STRUCTURE_CONF['log_handler'](request, response, response.err if hasattr(response, 'err') else None,
                                           request_time, timezone.now())
         return response
